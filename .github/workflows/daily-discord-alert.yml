@@ -41,17 +41,20 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: mvn -q exec:java -Dexec.mainClass=Main
 
+      - name: Generate public contests page
+        run: mvn -q exec:java -Dexec.mainClass=PageGenerator
+
       - name: Commit sent id history if changed
         run: |
-          if git diff --quiet -- sent_ids.txt; then
-            echo "No sent_ids.txt changes"
+          if git diff --quiet -- sent_ids.txt docs/index.html; then
+            echo "No sent_ids.txt/docs changes"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sent_ids.txt
-          git commit -m "chore: update sent ids [skip ci]"
+          git add sent_ids.txt docs/index.html
+          git commit -m "chore: update alert state and page [skip ci]"
           if ! git push; then
             echo "Push failed. Check repository workflow permissions or branch protection settings."
             exit 0
