@@ -4,7 +4,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class DiscordService {
-    private static final String WEBHOOK_ENV_KEY = "https://discord.com/api/webhooks/1481089185384366333/M-BcqLKSbNLND27GYiW9ajNEzAqYsMy4U5fu4kgO0bQBdfB0_lX4Q0q6DohQSiE51D7X";
+    private static final String WEBHOOK_ENV_KEY = "DISCORD_WEBHOOK_URL";
 
     public static void sendMessage(String message) throws Exception {
         String webhookUrl = resolveWebhookUrl();
