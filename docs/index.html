@@ -4,164 +4,345 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily Contest Alert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f4f1ea;
-      --card: #fffaf2;
-      --ink: #222222;
-      --muted: #5b5b5b;
-      --accent: #d9480f;
-      --line: #e8dcc8;
+      --bg: #f3efe7;
+      --paper: #fffdf7;
+      --ink: #171717;
+      --muted: #5c5b57;
+      --brand: #0f766e;
+      --brand-strong: #115e59;
+      --line: #dbd5ca;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at 10% 10%, #fff8ec 0%, var(--bg) 40%, #efe9dc 100%);
+      background:
+        radial-gradient(circle at 8% 12%, #fff8df 0%, rgba(255, 248, 223, 0) 45%),
+        radial-gradient(circle at 92% 5%, #d7f5ee 0%, rgba(215, 245, 238, 0) 40%),
+        linear-gradient(170deg, #f7f3ea 0%, var(--bg) 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0));
     }
     .wrap {
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
+      padding: 28px 18px 64px;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      padding: 26px 24px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(140deg, #fffef9 0%, #fff8e9 45%, #eefaf6 100%);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.07);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -50px;
+      top: -60px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.25) 0%, rgba(15, 118, 110, 0) 70%);
+    }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand-strong);
+      background: #ffffff;
+      border: 1px solid #cbe4df;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--brand);
     }
     h1 {
-      margin: 0 0 8px;
-      font-size: clamp(28px, 5vw, 48px);
-      letter-spacing: -0.03em;
+      margin: 0;
+      font-size: clamp(30px, 6vw, 56px);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
     }
-    .meta {
-      margin: 0 0 24px;
+    .hero-sub {
+      margin: 12px 0 0;
       color: var(--muted);
+      font-family: "Noto Sans KR", sans-serif;
+      font-size: clamp(14px, 2vw, 17px);
     }
-    .badge {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 6px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--accent);
-      font-weight: 700;
+    .stats {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stat {
+      padding: 9px 12px;
       font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fff;
+      color: #2a2a2a;
     }
     .list {
       list-style: none;
       margin: 0;
       padding: 0;
       display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: 12px;
     }
     .item {
-      background: var(--card);
+      grid-column: span 6;
+      position: relative;
+      background: var(--paper);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
-      animation: rise 320ms ease both;
+      border-radius: 15px;
+      padding: 14px 14px 12px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+      animation: rise 420ms ease both;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
     }
-    .item a {
+    .item:nth-child(odd) { animation-delay: 40ms; }
+    .item:nth-child(even) { animation-delay: 100ms; }
+    .item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.08);
+      border-color: #c8e6df;
+    }
+    .item-no {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #edf9f6;
+      color: var(--brand-strong);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .item-link {
+      display: block;
       color: var(--ink);
       text-decoration: none;
+      font-family: "Noto Sans KR", sans-serif;
+      font-size: 17px;
       font-weight: 700;
       line-height: 1.4;
     }
-    .item a:hover { color: var(--accent); }
-    .item p {
-      margin: 10px 0 0;
+    .item-link:hover { color: var(--brand-strong); }
+    .item-meta {
+      margin-top: 11px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
     }
+    .item-meta span:last-child { text-transform: uppercase; letter-spacing: 0.05em; }
     @keyframes rise {
-      from { transform: translateY(6px); opacity: 0; }
+      from { transform: translateY(10px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
+    }
+    @media (max-width: 860px) {
+      .item { grid-column: span 12; }
     }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <span class="badge">CAMPUSPICK AUTO UPDATE</span>
-    <h1>오늘의 공모전 소식</h1>
-    <p class="meta">최근 갱신: 2026-03-19 16:17:45 (KST) · 총 20건</p>
+    <section class="hero">
+      <span class="kicker"><span class="dot"></span> Daily Contest Alert</span>
+      <h1>오늘의 공모전 소식</h1>
+      <p class="hero-sub">캠퍼스픽 기준 최신 공모전 목록을 매일 자동 갱신합니다.</p>
+      <div class="stats">
+        <span class="stat">최근 갱신 2026-03-19 16:45:52 (KST)</span>
+        <span class="stat">총 20건</span>
+      </div>
+    </section>
     <ul class="list"><li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33182" target="_blank" rel="noopener noreferrer">스타트업 커리어 챌린지’ AI·블록체인 아이디어 공모전</a>
-  <p>ID: 33182</p>
+  <span class="item-no">#1</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33182" target="_blank" rel="noopener noreferrer">스타트업 커리어 챌린지’ AI·블록체인 아이디어 공모전</a>
+  <div class="item-meta">
+    <span>ID 33182</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32853" target="_blank" rel="noopener noreferrer">카카오 멘토와 함께하는 카카오테크 부트캠프 교육생 모집</a>
-  <p>ID: 32853</p>
+  <span class="item-no">#2</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32853" target="_blank" rel="noopener noreferrer">카카오 멘토와 함께하는 카카오테크 부트캠프 교육생 모집</a>
+  <div class="item-meta">
+    <span>ID 32853</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32558" target="_blank" rel="noopener noreferrer">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</a>
-  <p>ID: 32558</p>
+  <span class="item-no">#3</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32558" target="_blank" rel="noopener noreferrer">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</a>
+  <div class="item-meta">
+    <span>ID 32558</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33107" target="_blank" rel="noopener noreferrer">프로토콜 캠프 9기 웹3 빌더 모집 (ShardLab × Hashed)</a>
-  <p>ID: 33107</p>
+  <span class="item-no">#4</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33107" target="_blank" rel="noopener noreferrer">프로토콜 캠프 9기 웹3 빌더 모집 (ShardLab × Hashed)</a>
+  <div class="item-meta">
+    <span>ID 33107</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33102" target="_blank" rel="noopener noreferrer">2026 스마일게이트 인디게임 창작 공모전 &amp;lt;IndieGo&gt;</a>
-  <p>ID: 33102</p>
+  <span class="item-no">#5</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33102" target="_blank" rel="noopener noreferrer">2026 스마일게이트 인디게임 창작 공모전 &lt;IndieGo&gt;</a>
+  <div class="item-meta">
+    <span>ID 33102</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33060" target="_blank" rel="noopener noreferrer">2026 월드퀀트 국제 퀀트 모의투자 대회(IQC) (~5/13)</a>
-  <p>ID: 33060</p>
+  <span class="item-no">#6</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33060" target="_blank" rel="noopener noreferrer">2026 월드퀀트 국제 퀀트 모의투자 대회(IQC) (~5/13)</a>
+  <div class="item-meta">
+    <span>ID 33060</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33036" target="_blank" rel="noopener noreferrer">하나금융그룹 하나 청년 금융인재 양성 프로젝트</a>
-  <p>ID: 33036</p>
+  <span class="item-no">#7</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33036" target="_blank" rel="noopener noreferrer">하나금융그룹 하나 청년 금융인재 양성 프로젝트</a>
+  <div class="item-meta">
+    <span>ID 33036</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=33028" target="_blank" rel="noopener noreferrer">2026 INC0GNITO 아이디어톤</a>
-  <p>ID: 33028</p>
+  <span class="item-no">#8</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=33028" target="_blank" rel="noopener noreferrer">2026 INC0GNITO 아이디어톤</a>
+  <div class="item-meta">
+    <span>ID 33028</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32896" target="_blank" rel="noopener noreferrer">제1회 프론티아 AI 콘텐츠 제작 공모전</a>
-  <p>ID: 32896</p>
+  <span class="item-no">#9</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32896" target="_blank" rel="noopener noreferrer">제1회 프론티아 AI 콘텐츠 제작 공모전</a>
+  <div class="item-meta">
+    <span>ID 32896</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32888" target="_blank" rel="noopener noreferrer">카카오임팩트/브라이언임팩트 AI_TOP_100 (CAMPUS) 신청자모집</a>
-  <p>ID: 32888</p>
+  <span class="item-no">#10</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32888" target="_blank" rel="noopener noreferrer">카카오임팩트/브라이언임팩트 AI_TOP_100 (CAMPUS) 신청자모집</a>
+  <div class="item-meta">
+    <span>ID 32888</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32865" target="_blank" rel="noopener noreferrer">AI영상 서비스 MVP 해커톤</a>
-  <p>ID: 32865</p>
+  <span class="item-no">#11</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32865" target="_blank" rel="noopener noreferrer">AI영상 서비스 MVP 해커톤</a>
+  <div class="item-meta">
+    <span>ID 32865</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32810" target="_blank" rel="noopener noreferrer">2026 티슈 해커톤형 팀업 공모전</a>
-  <p>ID: 32810</p>
+  <span class="item-no">#12</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32810" target="_blank" rel="noopener noreferrer">2026 티슈 해커톤형 팀업 공모전</a>
+  <div class="item-meta">
+    <span>ID 32810</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32399" target="_blank" rel="noopener noreferrer">피싱·스캠 예방을 위한 서비스 개발 경진대회</a>
-  <p>ID: 32399</p>
+  <span class="item-no">#13</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32399" target="_blank" rel="noopener noreferrer">피싱·스캠 예방을 위한 서비스 개발 경진대회</a>
+  <div class="item-meta">
+    <span>ID 32399</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32261" target="_blank" rel="noopener noreferrer">[안산문화재단] 2026 청년문화지원사업 &amp;lt;청년시점&gt; 전시/공연 청년예술</a>
-  <p>ID: 32261</p>
+  <span class="item-no">#14</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32261" target="_blank" rel="noopener noreferrer">[안산문화재단] 2026 청년문화지원사업 &lt;청년시점&gt; 전시/공연 청년예술</a>
+  <div class="item-meta">
+    <span>ID 32261</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32207" target="_blank" rel="noopener noreferrer">총 상금10,000달러, 홍콩 금융 투어까지, 대학생 데모 트레이딩 대회</a>
-  <p>ID: 32207</p>
+  <span class="item-no">#15</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32207" target="_blank" rel="noopener noreferrer">총 상금10,000달러, 홍콩 금융 투어까지, 대학생 데모 트레이딩 대회</a>
+  <div class="item-meta">
+    <span>ID 32207</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32150" target="_blank" rel="noopener noreferrer">2026 MOS World Championship 한국대표 선발전</a>
-  <p>ID: 32150</p>
+  <span class="item-no">#16</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32150" target="_blank" rel="noopener noreferrer">2026 MOS World Championship 한국대표 선발전</a>
+  <div class="item-meta">
+    <span>ID 32150</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32137" target="_blank" rel="noopener noreferrer">2026 청진기 &amp;lt;청년이 진심으로 원하는 기획사업&gt; 모집 공고</a>
-  <p>ID: 32137</p>
+  <span class="item-no">#17</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32137" target="_blank" rel="noopener noreferrer">2026 청진기 &lt;청년이 진심으로 원하는 기획사업&gt; 모집 공고</a>
+  <div class="item-meta">
+    <span>ID 32137</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32057" target="_blank" rel="noopener noreferrer">제4회 2026 블레이버스 MVP 개발 해커톤</a>
-  <p>ID: 32057</p>
+  <span class="item-no">#18</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32057" target="_blank" rel="noopener noreferrer">제4회 2026 블레이버스 MVP 개발 해커톤</a>
+  <div class="item-meta">
+    <span>ID 32057</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32042" target="_blank" rel="noopener noreferrer">HAI(하이)! - Hecto AI Challenge : 2025 하반기</a>
-  <p>ID: 32042</p>
+  <span class="item-no">#19</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32042" target="_blank" rel="noopener noreferrer">HAI(하이)! - Hecto AI Challenge : 2025 하반기</a>
+  <div class="item-meta">
+    <span>ID 32042</span>
+    <span>campuspick</span>
+  </div>
 </li>
 <li class="item">
-  <a href="https://www.campuspick.com/activity/view?id=32030" target="_blank" rel="noopener noreferrer">[해킹대회]한화손해보험 해킹대회 참여자 모집</a>
-  <p>ID: 32030</p>
+  <span class="item-no">#20</span>
+  <a class="item-link" href="https://www.campuspick.com/activity/view?id=32030" target="_blank" rel="noopener noreferrer">[해킹대회]한화손해보험 해킹대회 참여자 모집</a>
+  <div class="item-meta">
+    <span>ID 32030</span>
+    <span>campuspick</span>
+  </div>
 </li>
 </ul>
   </main>
