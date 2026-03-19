@@ -88,7 +88,7 @@ public class Scraper {
         while (titleMatcher.find() && idMatcher.find()) {
             String title = titleMatcher.group(1);
             String id = idMatcher.group(1);
-            String link = "https://www.campuspick.com/activity/view?id=" + id;
+            String link = "https://www.campuspick.com/activity?id=" + id;
             contests.add(new ContestInfo(id, title, link));
         }
 
