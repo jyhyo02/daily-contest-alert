@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Java build outputs
+*.class
+target/
+
+# IDE/temp files
+tempCodeRunnerFile.java
