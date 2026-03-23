@@ -58,6 +58,7 @@ public class Scraper {
             saveSentIds(currentIds);
             return "새로운 공고 " + count + "건 전송 완료!";
         } else {
+            DiscordService.sendMessage("오늘은 새로 업데이트된 공모전이 없습니다.");
             return "새로운 공고가 없습니다.";
         }
     }
@@ -88,7 +89,7 @@ public class Scraper {
         while (titleMatcher.find() && idMatcher.find()) {
             String title = titleMatcher.group(1);
             String id = idMatcher.group(1);
-            String link = "https://www.campuspick.com/activity?id=" + id;
+            String link = "https://www.campuspick.com/activity/view?id=" + id;
             contests.add(new ContestInfo(id, title, link));
         }
 

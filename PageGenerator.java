@@ -30,7 +30,7 @@ public class PageGenerator {
             cards.append("""
                 <li class=\"item\">
                   <span class=\"item-no\">#%d</span>
-                  <a class=\"item-link\" href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">%s</a>
+                  <h3 class=\"item-title\">%s</h3>
                   <div class=\"item-meta\">
                     <span>ID %s</span>
                     <span>campuspick</span>
@@ -38,7 +38,6 @@ public class PageGenerator {
                 </li>
                 """.formatted(
                     index,
-                    escapeHtml(contest.link()),
                     escapeHtml(title),
                     escapeHtml(contest.id())
             ));
@@ -141,6 +140,26 @@ public class PageGenerator {
                   font-family: "Noto Sans KR", sans-serif;
                   font-size: clamp(14px, 2vw, 17px);
                 }
+                .hero-cta {
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-top: 16px;
+                  padding: 11px 16px;
+                  border-radius: 12px;
+                  background: linear-gradient(135deg, var(--brand) 0%%, #0a8d83 100%%);
+                  color: #ffffff;
+                  text-decoration: none;
+                  font-size: 14px;
+                  font-weight: 700;
+                  letter-spacing: 0.01em;
+                  box-shadow: 0 10px 18px rgba(15, 118, 110, 0.25);
+                  transition: transform 180ms ease, box-shadow 180ms ease;
+                }
+                .hero-cta:hover {
+                  transform: translateY(-2px);
+                  box-shadow: 0 14px 20px rgba(15, 118, 110, 0.30);
+                }
                 .stats {
                   margin-top: 16px;
                   display: flex;
@@ -192,16 +211,14 @@ public class PageGenerator {
                   font-size: 11px;
                   font-weight: 700;
                 }
-                .item-link {
-                  display: block;
+                .item-title {
+                  margin: 0;
                   color: var(--ink);
-                  text-decoration: none;
                   font-family: "Noto Sans KR", sans-serif;
                   font-size: 17px;
                   font-weight: 700;
                   line-height: 1.4;
                 }
-                .item-link:hover { color: var(--brand-strong); }
                 .item-meta {
                   margin-top: 11px;
                   display: flex;
@@ -226,6 +243,7 @@ public class PageGenerator {
                   <span class=\"kicker\"><span class=\"dot\"></span> Daily Contest Alert</span>
                   <h1>오늘의 공모전 소식</h1>
                   <p class=\"hero-sub\">캠퍼스픽 기준 최신 공모전 목록을 매일 자동 갱신합니다.</p>
+                  <a class=\"hero-cta\" href=\"https://www.campuspick.com/contest\" target=\"_blank\" rel=\"noopener noreferrer\">캠퍼스픽 공모전 페이지 열기</a>
                   <div class=\"stats\">
                     <span class=\"stat\">최근 갱신 %s (KST)</span>
                     <span class=\"stat\">총 %d건</span>
