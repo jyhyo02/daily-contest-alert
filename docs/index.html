@@ -94,6 +94,26 @@
       font-family: "Noto Sans KR", sans-serif;
       font-size: clamp(14px, 2vw, 17px);
     }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand) 0%, #0a8d83 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: 0 10px 18px rgba(15, 118, 110, 0.25);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 20px rgba(15, 118, 110, 0.30);
+    }
     .stats {
       margin-top: 16px;
       display: flex;
@@ -145,16 +165,14 @@
       font-size: 11px;
       font-weight: 700;
     }
-    .item-link {
-      display: block;
+    .item-title {
+      margin: 0;
       color: var(--ink);
-      text-decoration: none;
       font-family: "Noto Sans KR", sans-serif;
       font-size: 17px;
       font-weight: 700;
       line-height: 1.4;
     }
-    .item-link:hover { color: var(--brand-strong); }
     .item-meta {
       margin-top: 11px;
       display: flex;
@@ -179,14 +197,15 @@
       <span class="kicker"><span class="dot"></span> Daily Contest Alert</span>
       <h1>오늘의 공모전 소식</h1>
       <p class="hero-sub">캠퍼스픽 기준 최신 공모전 목록을 매일 자동 갱신합니다.</p>
+      <a class="hero-cta" href="https://www.campuspick.com/contest" target="_blank" rel="noopener noreferrer">캠퍼스픽 공모전 페이지 열기</a>
       <div class="stats">
-        <span class="stat">최근 갱신 2026-03-23 13:51:35 (KST)</span>
+        <span class="stat">최근 갱신 2026-03-23 15:13:08 (KST)</span>
         <span class="stat">총 23건</span>
       </div>
     </section>
     <ul class="list"><li class="item">
   <span class="item-no">#1</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33182" target="_blank" rel="noopener noreferrer">스타트업 커리어 챌린지’ AI·블록체인 아이디어 공모전</a>
+  <h3 class="item-title">스타트업 커리어 챌린지’ AI·블록체인 아이디어 공모전</h3>
   <div class="item-meta">
     <span>ID 33182</span>
     <span>campuspick</span>
@@ -194,7 +213,7 @@
 </li>
 <li class="item">
   <span class="item-no">#2</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33036" target="_blank" rel="noopener noreferrer">하나금융그룹 하나 청년 금융인재 양성 프로젝트</a>
+  <h3 class="item-title">하나금융그룹 하나 청년 금융인재 양성 프로젝트</h3>
   <div class="item-meta">
     <span>ID 33036</span>
     <span>campuspick</span>
@@ -202,7 +221,7 @@
 </li>
 <li class="item">
   <span class="item-no">#3</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33028" target="_blank" rel="noopener noreferrer">2026 INC0GNITO 아이디어톤</a>
+  <h3 class="item-title">2026 INC0GNITO 아이디어톤</h3>
   <div class="item-meta">
     <span>ID 33028</span>
     <span>campuspick</span>
@@ -210,7 +229,7 @@
 </li>
 <li class="item">
   <span class="item-no">#4</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32558" target="_blank" rel="noopener noreferrer">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</a>
+  <h3 class="item-title">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</h3>
   <div class="item-meta">
     <span>ID 32558</span>
     <span>campuspick</span>
@@ -218,7 +237,7 @@
 </li>
 <li class="item">
   <span class="item-no">#5</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33234" target="_blank" rel="noopener noreferrer">아두이노 우노 Q 및 앱 랩 미래 발명 공모전</a>
+  <h3 class="item-title">아두이노 우노 Q 및 앱 랩 미래 발명 공모전</h3>
   <div class="item-meta">
     <span>ID 33234</span>
     <span>campuspick</span>
@@ -226,7 +245,7 @@
 </li>
 <li class="item">
   <span class="item-no">#6</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33229" target="_blank" rel="noopener noreferrer">대학생 나노기술 공모전 나노영챌린지 2026</a>
+  <h3 class="item-title">대학생 나노기술 공모전 나노영챌린지 2026</h3>
   <div class="item-meta">
     <span>ID 33229</span>
     <span>campuspick</span>
@@ -234,7 +253,7 @@
 </li>
 <li class="item">
   <span class="item-no">#7</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33107" target="_blank" rel="noopener noreferrer">프로토콜 캠프 9기 웹3 빌더 모집 (ShardLab × Hashed)</a>
+  <h3 class="item-title">프로토콜 캠프 9기 웹3 빌더 모집 (ShardLab × Hashed)</h3>
   <div class="item-meta">
     <span>ID 33107</span>
     <span>campuspick</span>
@@ -242,7 +261,7 @@
 </li>
 <li class="item">
   <span class="item-no">#8</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33102" target="_blank" rel="noopener noreferrer">2026 스마일게이트 인디게임 창작 공모전 &lt;IndieGo&gt;</a>
+  <h3 class="item-title">2026 스마일게이트 인디게임 창작 공모전 &lt;IndieGo&gt;</h3>
   <div class="item-meta">
     <span>ID 33102</span>
     <span>campuspick</span>
@@ -250,7 +269,7 @@
 </li>
 <li class="item">
   <span class="item-no">#9</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33060" target="_blank" rel="noopener noreferrer">2026 월드퀀트 국제 퀀트 모의투자 대회(IQC) (~5/13)</a>
+  <h3 class="item-title">2026 월드퀀트 국제 퀀트 모의투자 대회(IQC) (~5/13)</h3>
   <div class="item-meta">
     <span>ID 33060</span>
     <span>campuspick</span>
@@ -258,7 +277,7 @@
 </li>
 <li class="item">
   <span class="item-no">#10</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32896" target="_blank" rel="noopener noreferrer">제1회 프론티아 AI 콘텐츠 제작 공모전</a>
+  <h3 class="item-title">제1회 프론티아 AI 콘텐츠 제작 공모전</h3>
   <div class="item-meta">
     <span>ID 32896</span>
     <span>campuspick</span>
@@ -266,7 +285,7 @@
 </li>
 <li class="item">
   <span class="item-no">#11</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32888" target="_blank" rel="noopener noreferrer">카카오임팩트/브라이언임팩트 AI_TOP_100 (CAMPUS) 신청자모집</a>
+  <h3 class="item-title">카카오임팩트/브라이언임팩트 AI_TOP_100 (CAMPUS) 신청자모집</h3>
   <div class="item-meta">
     <span>ID 32888</span>
     <span>campuspick</span>
@@ -274,7 +293,7 @@
 </li>
 <li class="item">
   <span class="item-no">#12</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32865" target="_blank" rel="noopener noreferrer">AI영상 서비스 MVP 해커톤</a>
+  <h3 class="item-title">AI영상 서비스 MVP 해커톤</h3>
   <div class="item-meta">
     <span>ID 32865</span>
     <span>campuspick</span>
@@ -282,7 +301,7 @@
 </li>
 <li class="item">
   <span class="item-no">#13</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32853" target="_blank" rel="noopener noreferrer">카카오 멘토와 함께하는 카카오테크 부트캠프 교육생 모집</a>
+  <h3 class="item-title">카카오 멘토와 함께하는 카카오테크 부트캠프 교육생 모집</h3>
   <div class="item-meta">
     <span>ID 32853</span>
     <span>campuspick</span>
@@ -290,7 +309,7 @@
 </li>
 <li class="item">
   <span class="item-no">#14</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32810" target="_blank" rel="noopener noreferrer">2026 티슈 해커톤형 팀업 공모전</a>
+  <h3 class="item-title">2026 티슈 해커톤형 팀업 공모전</h3>
   <div class="item-meta">
     <span>ID 32810</span>
     <span>campuspick</span>
@@ -298,7 +317,7 @@
 </li>
 <li class="item">
   <span class="item-no">#15</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32399" target="_blank" rel="noopener noreferrer">피싱·스캠 예방을 위한 서비스 개발 경진대회</a>
+  <h3 class="item-title">피싱·스캠 예방을 위한 서비스 개발 경진대회</h3>
   <div class="item-meta">
     <span>ID 32399</span>
     <span>campuspick</span>
@@ -306,7 +325,7 @@
 </li>
 <li class="item">
   <span class="item-no">#16</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32261" target="_blank" rel="noopener noreferrer">[안산문화재단] 2026 청년문화지원사업 &lt;청년시점&gt; 전시/공연 청년예술</a>
+  <h3 class="item-title">[안산문화재단] 2026 청년문화지원사업 &lt;청년시점&gt; 전시/공연 청년예술</h3>
   <div class="item-meta">
     <span>ID 32261</span>
     <span>campuspick</span>
@@ -314,7 +333,7 @@
 </li>
 <li class="item">
   <span class="item-no">#17</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32207" target="_blank" rel="noopener noreferrer">총 상금10,000달러, 홍콩 금융 투어까지, 대학생 데모 트레이딩 대회</a>
+  <h3 class="item-title">총 상금10,000달러, 홍콩 금융 투어까지, 대학생 데모 트레이딩 대회</h3>
   <div class="item-meta">
     <span>ID 32207</span>
     <span>campuspick</span>
@@ -322,7 +341,7 @@
 </li>
 <li class="item">
   <span class="item-no">#18</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32150" target="_blank" rel="noopener noreferrer">2026 MOS World Championship 한국대표 선발전</a>
+  <h3 class="item-title">2026 MOS World Championship 한국대표 선발전</h3>
   <div class="item-meta">
     <span>ID 32150</span>
     <span>campuspick</span>
@@ -330,7 +349,7 @@
 </li>
 <li class="item">
   <span class="item-no">#19</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32137" target="_blank" rel="noopener noreferrer">2026 청진기 &lt;청년이 진심으로 원하는 기획사업&gt; 모집 공고</a>
+  <h3 class="item-title">2026 청진기 &lt;청년이 진심으로 원하는 기획사업&gt; 모집 공고</h3>
   <div class="item-meta">
     <span>ID 32137</span>
     <span>campuspick</span>
@@ -338,7 +357,7 @@
 </li>
 <li class="item">
   <span class="item-no">#20</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32057" target="_blank" rel="noopener noreferrer">제4회 2026 블레이버스 MVP 개발 해커톤</a>
+  <h3 class="item-title">제4회 2026 블레이버스 MVP 개발 해커톤</h3>
   <div class="item-meta">
     <span>ID 32057</span>
     <span>campuspick</span>
@@ -346,23 +365,23 @@
 </li>
 <li class="item">
   <span class="item-no">#21</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33028" target="_blank" rel="noopener noreferrer">2026 INC0GNITO 아이디어톤</a>
-  <div class="item-meta">
-    <span>ID 33028</span>
-    <span>campuspick</span>
-  </div>
-</li>
-<li class="item">
-  <span class="item-no">#22</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=33036" target="_blank" rel="noopener noreferrer">하나금융그룹 하나 청년 금융인재 양성 프로젝트</a>
+  <h3 class="item-title">하나금융그룹 하나 청년 금융인재 양성 프로젝트</h3>
   <div class="item-meta">
     <span>ID 33036</span>
     <span>campuspick</span>
   </div>
 </li>
 <li class="item">
+  <span class="item-no">#22</span>
+  <h3 class="item-title">2026 INC0GNITO 아이디어톤</h3>
+  <div class="item-meta">
+    <span>ID 33028</span>
+    <span>campuspick</span>
+  </div>
+</li>
+<li class="item">
   <span class="item-no">#23</span>
-  <a class="item-link" href="https://www.campuspick.com/activity?id=32558" target="_blank" rel="noopener noreferrer">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</a>
+  <h3 class="item-title">Red Bull Basement 2026 세계를 변화시킬 하나의 아이디어</h3>
   <div class="item-meta">
     <span>ID 32558</span>
     <span>campuspick</span>
