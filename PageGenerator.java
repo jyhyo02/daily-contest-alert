@@ -4,19 +4,24 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageGenerator {
     private static final ZoneId KST = ZoneId.of("Asia/Seoul");
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private static final String ALERT_HISTORY_FILE = "alert_history.tsv";
+  private static final int HISTORY_LIMIT = 50;
+  private record AlertHistoryEntry(String id, String title, String link, String alertedAt) {}
 
     public static void main(String[] args) throws Exception {
         List<Scraper.ContestInfo> contests = Scraper.fetchLatestContests();
-        writeIndexPage(contests);
+    List<AlertHistoryEntry> alertHistory = loadAlertHistory();
+    writeIndexPage(contests, alertHistory);
         System.out.println("페이지 생성 완료: docs/index.html (" + contests.size() + "건)");
     }
 
-    private static void writeIndexPage(List<Scraper.ContestInfo> contests) throws Exception {
+  private static void writeIndexPage(List<Scraper.ContestInfo> contests, List<AlertHistoryEntry> alertHistory) throws Exception {
         Path docsDir = Path.of("docs");
         Files.createDirectories(docsDir);
 
@@ -40,6 +45,27 @@ public class PageGenerator {
                     index,
                     escapeHtml(title),
                     escapeHtml(contest.id())
+            ));
+        }
+
+        StringBuilder historyCards = new StringBuilder();
+        int historyIndex = 0;
+        for (AlertHistoryEntry entry : alertHistory) {
+            historyIndex++;
+            historyCards.append("""
+                <li class=\"item history-item\">
+                  <span class=\"item-no\">#%d</span>
+                  <h3 class=\"item-title\">%s</h3>
+                  <div class=\"item-meta\">
+                    <span>ID %s</span>
+                    <span>%s</span>
+                  </div>
+                </li>
+                """.formatted(
+                    historyIndex,
+                    escapeHtml(normalizeTitle(entry.title())),
+                    escapeHtml(entry.id()),
+                    escapeHtml(entry.alertedAt())
             ));
         }
 
@@ -166,6 +192,11 @@ public class PageGenerator {
                   flex-wrap: wrap;
                   gap: 10px;
                 }
+                .section-title {
+                  margin: 26px 0 12px;
+                  font-size: 20px;
+                  letter-spacing: -0.02em;
+                }
                 .stat {
                   padding: 9px 12px;
                   font-size: 13px;
@@ -228,6 +259,10 @@ public class PageGenerator {
                   font-size: 12px;
                 }
                 .item-meta span:last-child { text-transform: uppercase; letter-spacing: 0.05em; }
+                .history-item .item-meta span:last-child {
+                  text-transform: none;
+                  letter-spacing: 0;
+                }
                 @keyframes rise {
                   from { transform: translateY(10px); opacity: 0; }
                   to { transform: translateY(0); opacity: 1; }
@@ -247,13 +282,19 @@ public class PageGenerator {
                   <div class=\"stats\">
                     <span class=\"stat\">최근 갱신 %s (KST)</span>
                     <span class=\"stat\">총 %d건</span>
+                    <span class=\"stat\">알림 이력 %d건</span>
                   </div>
                 </section>
+
+                <h2 class=\"section-title\">현재 공모전 목록</h2>
+                <ul class=\"list\">%s</ul>
+
+                <h2 class=\"section-title\">디스코드 알림 이력(최신순)</h2>
                 <ul class=\"list\">%s</ul>
               </main>
             </body>
             </html>
-            """.formatted(escapeHtml(updatedAt), contests.size(), cards);
+            """.formatted(escapeHtml(updatedAt), contests.size(), alertHistory.size(), cards, historyCards);
 
         Files.writeString(docsDir.resolve("index.html"), html, StandardCharsets.UTF_8);
     }
@@ -272,5 +313,33 @@ public class PageGenerator {
           .replace("&lt;", "<")
           .replace("&gt;", ">")
           .replace("&amp;", "&");
+    }
+
+    private static List<AlertHistoryEntry> loadAlertHistory() throws Exception {
+      List<AlertHistoryEntry> entries = new ArrayList<>();
+      Path path = Path.of(ALERT_HISTORY_FILE);
+      if (!Files.exists(path)) {
+        return entries;
+      }
+
+      List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+      for (int i = lines.size() - 1; i >= 0; i--) {
+        if (entries.size() >= HISTORY_LIMIT) {
+          break;
+        }
+        String line = lines.get(i).trim();
+        if (line.isEmpty()) {
+          continue;
+        }
+
+        String[] parts = line.split("\\t", 4);
+        if (parts.length < 4) {
+          continue;
+        }
+
+        entries.add(new AlertHistoryEntry(parts[0], parts[1], parts[2], parts[3]));
+      }
+
+      return entries;
     }
 }

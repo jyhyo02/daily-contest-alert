@@ -120,6 +120,11 @@
       flex-wrap: wrap;
       gap: 10px;
     }
+    .section-title {
+      margin: 26px 0 12px;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
     .stat {
       padding: 9px 12px;
       font-size: 13px;
@@ -182,6 +187,10 @@
       font-size: 12px;
     }
     .item-meta span:last-child { text-transform: uppercase; letter-spacing: 0.05em; }
+    .history-item .item-meta span:last-child {
+      text-transform: none;
+      letter-spacing: 0;
+    }
     @keyframes rise {
       from { transform: translateY(10px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -199,10 +208,13 @@
       <p class="hero-sub">캠퍼스픽 기준 최신 공모전 목록을 매일 자동 갱신합니다.</p>
       <a class="hero-cta" href="https://www.campuspick.com/contest" target="_blank" rel="noopener noreferrer">캠퍼스픽 공모전 페이지 열기</a>
       <div class="stats">
-        <span class="stat">최근 갱신 2026-03-24 11:01:44 (KST)</span>
+        <span class="stat">최근 갱신 2026-03-24 11:15:14 (KST)</span>
         <span class="stat">총 23건</span>
+        <span class="stat">알림 이력 0건</span>
       </div>
     </section>
+
+    <h2 class="section-title">현재 공모전 목록</h2>
     <ul class="list"><li class="item">
   <span class="item-no">#1</span>
   <h3 class="item-title">스타트업 커리어 챌린지’ AI·블록체인 아이디어 공모전</h3>
@@ -365,9 +377,9 @@
 </li>
 <li class="item">
   <span class="item-no">#21</span>
-  <h3 class="item-title">하나금융그룹 하나 청년 금융인재 양성 프로젝트</h3>
+  <h3 class="item-title">2026 INC0GNITO 아이디어톤</h3>
   <div class="item-meta">
-    <span>ID 33036</span>
+    <span>ID 33028</span>
     <span>campuspick</span>
   </div>
 </li>
@@ -381,13 +393,16 @@
 </li>
 <li class="item">
   <span class="item-no">#23</span>
-  <h3 class="item-title">2026 INC0GNITO 아이디어톤</h3>
+  <h3 class="item-title">하나금융그룹 하나 청년 금융인재 양성 프로젝트</h3>
   <div class="item-meta">
-    <span>ID 33028</span>
+    <span>ID 33036</span>
     <span>campuspick</span>
   </div>
 </li>
 </ul>
+
+    <h2 class="section-title">디스코드 알림 이력(최신순)</h2>
+    <ul class="list"></ul>
   </main>
 </body>
 </html>

@@ -50,14 +50,14 @@ jobs:
 
       - name: Commit sent id history if changed
         run: |
-          if git diff --quiet -- sent_ids.txt docs/index.html; then
-            echo "No sent_ids.txt/docs changes"
+          if git diff --quiet -- sent_ids.txt alert_history.tsv docs/index.html; then
+            echo "No sent_ids.txt/alert_history/docs changes"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sent_ids.txt docs/index.html
+          git add sent_ids.txt alert_history.tsv docs/index.html
           git commit -m "chore: update alert state and page [skip ci]"
 
           if ! git push; then

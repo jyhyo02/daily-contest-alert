@@ -7,6 +7,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +19,10 @@ import java.util.regex.Pattern;
 
 public class Scraper {
     private static final String HISTORY_FILE = "sent_ids.txt";
+    private static final String ALERT_HISTORY_FILE = "alert_history.tsv";
     private static final String API_URL = "https://api2.campuspick.com/find/activity/list";
+    private static final ZoneId KST = ZoneId.of("Asia/Seoul");
+    private static final DateTimeFormatter ALERT_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final String JSON_BODY = """
             {
                 "target": 1,
@@ -39,6 +45,7 @@ public class Scraper {
 
         int count = 0;
         List<String> currentIds = new ArrayList<>();
+        List<ContestInfo> newContests = new ArrayList<>();
 
         for (ContestInfo contest : latestContests) {
             String title = contest.title();
@@ -50,12 +57,14 @@ public class Scraper {
             message.append("🔗 링크: <").append(contest.link()).append(">\n");
             message.append("-----------------------------\n\n");
             currentIds.add(id);
+            newContests.add(contest);
             count++;
         }
 
         if (count > 0) {
             DiscordService.sendMessage(message.toString());
             saveSentIds(currentIds);
+            saveAlertHistory(newContests);
             return "새로운 공고 " + count + "건 전송 완료!";
         } else {
             DiscordService.sendMessage("오늘은 새로 업데이트된 공모전이 없습니다.");
@@ -117,5 +126,18 @@ public class Scraper {
             }catch (IOException e){
                 System.out.println("ID 파일을 저장하는 중 오류: " + e.getMessage());
             }
+    }
+
+    private static void saveAlertHistory(List<ContestInfo> contests) {
+        String alertedAt = LocalDateTime.now(KST).format(ALERT_TIME_FORMAT);
+        try (FileWriter fw = new FileWriter(ALERT_HISTORY_FILE, true);
+             PrintWriter out = new PrintWriter(fw)) {
+            for (ContestInfo contest : contests) {
+                String safeTitle = contest.title().replace("\t", " ").replace("\n", " ").replace("\r", " ");
+                out.println(contest.id() + "\t" + safeTitle + "\t" + contest.link() + "\t" + alertedAt);
+            }
+        } catch (IOException e) {
+            System.out.println("알림 이력 파일을 저장하는 중 오류: " + e.getMessage());
+        }
     }
 }
