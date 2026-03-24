@@ -6,6 +6,10 @@ on:
     - cron: "0 0 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: daily-discord-alert
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -55,7 +59,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent_ids.txt docs/index.html
           git commit -m "chore: update alert state and page [skip ci]"
+
           if ! git push; then
-            echo "Push failed. Check repository workflow permissions or branch protection settings."
-            exit 0
+            echo "First push failed. Retrying after rebase..."
+            git pull --rebase origin main
+            git push
           fi
