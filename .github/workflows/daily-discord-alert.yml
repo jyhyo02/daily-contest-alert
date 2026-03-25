@@ -58,7 +58,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent_ids.txt alert_history.tsv docs/index.html
-          git commit -m "chore: update alert state and page [skip ci]"
+          git commit -m "chore: update alert state and page"
 
           if ! git push; then
             echo "First push failed. Retrying after rebase..."

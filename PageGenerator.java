@@ -282,7 +282,7 @@ public class PageGenerator {
                   <div class=\"stats\">
                     <span class=\"stat\">최근 갱신 %s (KST)</span>
                     <span class=\"stat\">총 %d건</span>
-                    <span class=\"stat\">알림 이력 %d건</span>
+                    <span class=\"stat\">새로운 업데이트 %d건</span>
                   </div>
                 </section>
 
