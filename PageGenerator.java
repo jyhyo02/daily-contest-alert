@@ -48,27 +48,6 @@ public class PageGenerator {
             ));
         }
 
-        StringBuilder historyCards = new StringBuilder();
-        int historyIndex = 0;
-        for (AlertHistoryEntry entry : alertHistory) {
-            historyIndex++;
-            historyCards.append("""
-                <li class=\"item history-item\">
-                  <span class=\"item-no\">#%d</span>
-                  <h3 class=\"item-title\">%s</h3>
-                  <div class=\"item-meta\">
-                    <span>ID %s</span>
-                    <span>%s</span>
-                  </div>
-                </li>
-                """.formatted(
-                    historyIndex,
-                    escapeHtml(normalizeTitle(entry.title())),
-                    escapeHtml(entry.id()),
-                    escapeHtml(entry.alertedAt())
-            ));
-        }
-
         String html = """
             <!doctype html>
             <html lang=\"ko\">
@@ -288,13 +267,10 @@ public class PageGenerator {
 
                 <h2 class=\"section-title\">현재 공모전 목록</h2>
                 <ul class=\"list\">%s</ul>
-
-                <h2 class=\"section-title\">디스코드 알림 이력(최신순)</h2>
-                <ul class=\"list\">%s</ul>
               </main>
             </body>
             </html>
-            """.formatted(escapeHtml(updatedAt), contests.size(), alertHistory.size(), cards, historyCards);
+            """.formatted(escapeHtml(updatedAt), contests.size(), alertHistory.size(), cards);
 
         Files.writeString(docsDir.resolve("index.html"), html, StandardCharsets.UTF_8);
     }
